@@ -75,6 +75,8 @@ local gtSetupTable = {
 }
 
 local function CopyClassArgTable(tab)
+	if not tab then return end
+
 	local done = {}
 	local function recursiveCopy(oldtable)
 		local newtable = {}
@@ -135,7 +137,7 @@ local function CopyEntTable(Ent, Offset)
 	if EntityClass then
 		for iNumber, Key in pairs(EntityClass.Args) do
 			if gtSetupTable.SPECIAL[Key] then
-				Tab = CopyClassArgTable(EntTable)
+				Tab[Key] = CopyClassArgTable(EntTable[Key])
 			end
 			-- Ignore keys from old system
 			if (not gtSetupTable.POS[Key] and
